@@ -28,3 +28,4 @@ jobs:
           token: $ {{ secrets.CHAINING_PAT }}
           # Repo owner & name, slash separated, only set if invoking a workflow in a different repo
           repo: rschreiber/SilverTurtle.BlogGenerator
+          event_type: submodule_push
