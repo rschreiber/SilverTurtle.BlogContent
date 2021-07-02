@@ -20,16 +20,15 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Workflow Dispatch
-        # You may pin to the exact commit or the version.
-        # uses: benc-uk/workflow-dispatch@4c044c1613fabbe5250deadc65452d54c4ad4fc7
-        uses: benc-uk/workflow-dispatch@v1
+      - name: Deploy Your Service
+        uses: adityakar/workflow-dispatcher@v1
         with:
-          # Name or ID of workflow to run
-          workflow: BuildBlog
-          # GitHub token with repo write access, can NOT use secrets.GITHUB_TOKEN, see readme
+          owner: rschreiber
+          repo: SilverTurtle.BlogGenerator
           token: ${{ secrets.CHAINING_PAT }}
-          # Repo owner & name, slash separated, only set if invoking a workflow in a different repo
-          repo: 'rschreiber/SilverTurtle.BlogGenerator'
+          event_type: content-update
+          client_payload: '{"git-ref": "${{ github.event.inputs.git-ref }}"}'
+          wait_time: 5
+          max_time: 180
 
 
