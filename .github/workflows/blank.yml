@@ -20,12 +20,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Workflow Dispatch
-        uses: benc-uk/workflow-dispatch@v1
+      - name: Dispatch Action
+        # You may pin to the exact commit or the version.
+        # uses: mvasigh/dispatch-action@7d246d27377b345bd9c58646c51641bec9c7435c
+        uses: mvasigh/dispatch-action@1.1.6
         with:
-          workflow: BuildBlog
-          # GitHub token with repo write access, can NOT use secrets.GITHUB_TOKEN, see readme
-          token: $ {{ secrets.CHAINING_PAT }}
-          # Repo owner & name, slash separated, only set if invoking a workflow in a different repo
-          repo: rschreiber/SilverTurtle.BlogGenerator
+          # The Github access token to use (i.e. secrets.GITHUB_TOKEN)
+          token: ${{ secrets.CHAINING_PAT }}
+          # The name of the repository to dispatch the event to
+          repo: SilverTurtle.BlogGenerator
+          # The owner of the repository to dispatch the event to
+          owner: rschreiber
+          # The type of event to be dispatched
           event_type: submodule_push
+          # An optional JSON string payload to be dispatched
+          debug: 0 # optional, default is 0
