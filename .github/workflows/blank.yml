@@ -20,18 +20,16 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Trigger Repository Dispatch
+      - name: Workflow Dispatch
         # You may pin to the exact commit or the version.
-        # uses: myrotvorets/trigger-repository-dispatch-action@c817e05be28f593dcf8133440bf496cc1bdda637
-        uses: myrotvorets/trigger-repository-dispatch-action@1.1.0
+        # uses: benc-uk/workflow-dispatch@4c044c1613fabbe5250deadc65452d54c4ad4fc7
+        uses: benc-uk/workflow-dispatch@v1
         with:
-          # A Personal Access Token with repo scope. Do not use GITHUB_TOKEN.
+          # Name or ID of workflow to run
+          workflow: BuildBlog
+          # GitHub token with repo write access, can NOT use secrets.GITHUB_TOKEN, see readme
           token: ${{ secrets.CHAINING_PAT }}
-          # A repository (owner/repo) to send the dispatch to
-          repo: rschreiber/SilverTurtle.BlogGenerator
-          # A custom webhook event name
-          type: content-updated
-          # An optional JSON payload with extra information about the webhook event that your action or worklow may use. Up to 10 top-level properties are allowed
-          payload:  '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+          # Repo owner & name, slash separated, only set if invoking a workflow in a different repo
+          repo: 'rschreiber/SilverTurtle.BlogGenerator'
 
 
