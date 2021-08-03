@@ -5,10 +5,10 @@ on:
   repository_dispatch:
 
 jobs:
-  ping-pong:
+  dispatch-to-generator-repo:
     runs-on: ubuntu-latest
     steps:
-      - name: PING - Dispatch initiating repository event
+      - name: Dispatch initiating repository event
         run: |
           curl -X POST https://api.github.com/repos/rschreiber/SilverTurltle.BlogGenerator \
           -H 'Accept: application/vnd.github.everest-preview+json' \
