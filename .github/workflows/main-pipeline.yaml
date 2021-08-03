@@ -2,7 +2,6 @@ name: Remote Dispatch Action Initiator
 
 on:
   push:
-  repository_dispatch:
 
 jobs:
   dispatch-to-generator-repo:
