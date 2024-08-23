@@ -1,16 +1,20 @@
-name: Remote Dispatch Action Initiator
-
-on:
-  push:
+name: Trigger Build Workflow
+on: [push]
 
 jobs:
-  dispatch-to-generator-repo:
+  trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Dispatch initiating repository event
-        run: |
-          curl -X POST https://api.github.com/repos/rschreiber/SilverTurltle.BlogGenerator/dispatches \
-          -H 'Accept: application/vnd.github.everest-preview+json' \
-          -u ${{ secrets.ACCESS_TOKEN }} \
-          --data '{"event_type": "blog_content_changed", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
-
+      - name: Trigger another workflow
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const result = await github.actions.createWorkflowDispatch({
+              owner: 'rschreiber',
+              repo: 'SilverTurltle.BlogGenerator',
+              workflow_id: 'build-pipeline.yml',
+              ref: 'main'
+            });
+            console.log(result);
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
